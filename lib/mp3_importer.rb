@@ -9,7 +9,7 @@ class MP3Importer
   
   def files
     result= Dir["#{@path}/*.mp3"]
-     result.length
+    
     @normilized_array = []
     result.each do |el|
       @normilized_array << el.split(/\.\/.+\/.+\//)[1]
