@@ -1,6 +1,6 @@
 class Artist 
-attr_accessor :name
-@@all = [] 
+    attr_accessor :name
+    @@all = [] 
 
   def initialize(name)
     @name = name
@@ -9,35 +9,45 @@ attr_accessor :name
      # @@all = [] dont put here otherwise youll reset everytime.
 end
 
-def save #instance method 
+  def save #instance method 
   @@all << self # this self is referring to instance of Artist not class because it's in a instance method. or instance scope
-end
+  end
 
-def self.all #class method: self would refer to class
+  def self.all #class method: self would refer to class
   @@all 
-end
+  end
 
-def songs 
+  def songs # all of our artist instance songs
   @songs 
-end
+  end
   
-def add_song(song)
+  def add_song(song)
   @songs << song
-end
+  end
 
 
-def self.find_or_create_by_name(name)
-@@all.find do |artist| 
-  if artist.name == name 
- artist 
- else 
- new_artist = Artist.new(name)  
- end  
-end
-end
-end
+def self.find(name) # method for when it finds a artist to turn it
+@@all.find {|artist| artist.name == name} #{ <-replaces do...  replaces end -> }
+  
+end # <def end
 
+  def self.find_or_create_by_name(name) # when an artist isn't found.. create it.
+  self.find(name)? self.find(name):  Artist.new(name) # calling THE new method on the Artist class. That's how you creat any new instance on any class. 
+  end
 
+  
+  # this code here is def self.find(name) through def self.find_or_create_by_name(name) condensed 
+  # def self.find_or_create_by_name(name)
+  # @@all.find {|artist| artist.name == name}? @@all.find {|artist| artist.name == name}:  Artist.new(name) # calling THE new method on the Artist class. That's how you creat any new instance on any class. 
+  # end
+  # end  
+
+def print_songs
+  @songs.each do |song|
+    puts song.name
+  end
+end
+end
 
 
 
