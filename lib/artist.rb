@@ -9,11 +9,11 @@ attr_accessor :name
      # @@all = [] dont put here otherwise youll reset everytime.
 end
 
-def save
+def save #instance method 
   @@all << self # this self is referring to instance of Artist not class because it's in a instance method. or instance scope
 end
 
-def self.all
+def self.all #class method: self would refer to class
   @@all 
 end
 
