@@ -3,23 +3,18 @@ class Artist
   @@all = []
 
   def initialize(name)
-    @name = name
-    @songs= []
-    save
-  end
-
-  def add_song(song)
-    @songs << song
-    song.artist = self
-    song
+    self.name = name
+    @@all << self
   end
 
   def songs
-    Song.all.find { |song| song.artist == self }
+    Song.all.select do |song|
+      song.artist == self
+    end
   end
 
-  def save
-    @@all << self
+  def add_song(song)
+    song.artist = self
   end
 
   def self.all
@@ -27,14 +22,16 @@ class Artist
   end
 
   def self.find_or_create_by_name(name)
-    self.all.detect {|artist| artist.name == name} || Artist.new(name).save
+    result = Artist.all.find do |artist|
+      artist.name == name
+    end
+    if !result
+      result = Artist.new(name)
+    end
+    result
   end
 
   def print_songs
-    self.songs.each {|song| puts song.name}
-   end
-
-   def artist_name=(artist)
-    self.artist = Artist.find_or_create_by_name(artist)
+    puts self.songs.map { |song| song.name }
   end
 end
