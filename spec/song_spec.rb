@@ -30,6 +30,7 @@ describe 'Song' do
 
   describe '.all' do
     it 'returns all existing Song instances' do
+      Song.all.clear
       song = Song.new('Man in the Mirror')
       expect(Song.all).to eq([song])
       purple_rain = Song.new('Purple Rain')
@@ -45,6 +46,7 @@ describe 'Song' do
     end
 
     it 'associates new song instance with the artist from the filename' do
+      Song.all.clear
       Artist.class_variable_set("@@all",[])
       file_name = 'Michael Jackson - Black or White - pop.mp3'
 
